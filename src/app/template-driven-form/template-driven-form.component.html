@@ -1,0 +1,72 @@
+<form #form="ngForm" (ngSubmit)="submitted()">
+
+  <p>
+    <label for="firstname">First Name </label>
+    <input type="text" id="firstname" required name="firstName" [(ngModel)]="contact.firstName" #firstNameControl="ngModel">
+    <br>
+    <ng-container *ngIf="firstNameControl.invalid && (firstNameControl.dirty || firstNameControl.touched)">
+      <span *ngIf="firstNameControl.errors?.required" class="error-message">First name must be provided</span>
+    </ng-container>
+  </p>
+
+  <p>
+    <label for="lastname">Last Name </label>
+    <input type="text" id="lastname" required name="lastName" [(ngModel)]="contact.lastName" #lastNameControl="ngModel">
+    <br>
+    <ng-container *ngIf="lastNameControl.invalid && (lastNameControl.dirty || lastNameControl.touched)">
+      <span *ngIf="lastNameControl.errors?.required" class="error-message">Last name must be provided</span>
+    </ng-container>
+  </p>
+
+  <p>
+    <label for="email">Email </label>
+    <input type="text" id="email" email required name="email" [(ngModel)]="contact.email" #emailControl="ngModel">
+    <br>
+    <ng-container *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)">
+      <span *ngIf="emailControl.errors?.required" class="error-message">Email must be provided</span>
+      <span *ngIf="emailControl.errors?.email" class="error-message">Invalid email format</span>
+    </ng-container>
+  </p>
+
+  <p>
+    <label for="gender">Gender </label>
+    <input type="radio" value="male" id="gender" name="gender" [(ngModel)]="contact.gender"> Male
+    <input type="radio" value="female" id="gender" name="gender" [(ngModel)]="contact.gender"> Female
+  </p>
+
+  <p>
+    <label for="isMarried">Married </label>
+    <input type="checkbox" id="isMarried" name="isMarried" [(ngModel)]="contact.isMarried">
+  </p>
+
+  <p>
+    <label for="country">Country </label>
+    <select id="country" name="country"  [(ngModel)]="contact.country">
+      <option [ngValue]="c.code" *ngFor="let c of countryList">
+        {{c.name}}
+      </option>
+    </select>
+  </p>
+
+  <div>
+
+    <div class="form-group">
+        <label for="city">City </label>
+        <input type="text" class="form-control" id="city" name="city" [(ngModel)]="contact.address.city">
+    </div>
+
+    <div class="form-group">
+        <label for="street">Street </label>
+        <input type="text" class="form-control" id="street" name="city" [(ngModel)]="contact.address.street">
+    </div>
+
+    <div class="form-group">
+        <label for="postcode">Postcode </label>
+        <input type="text" class="form-control" id="postcode" name="postcode" [(ngModel)]="contact.address.postcode">
+    </div>
+  </div>
+  <p>
+    <button [disabled]="form.invalid" type="submit">Submit</button>
+  </p>
+
+</form>
